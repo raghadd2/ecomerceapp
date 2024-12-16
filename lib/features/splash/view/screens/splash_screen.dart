@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: const Text('Splash Screen'),
+        child: const Text('E commerce App'),
       ),
     );
   }

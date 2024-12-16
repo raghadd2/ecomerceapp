@@ -27,13 +27,14 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     10.wGap,
-                    Icon(Icons.settings_outlined, size: 30),
+                    Icon(Icons.settings_outlined, size: 25),
                   ],
                 ),
                 Text(
                   'Drawers',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
+                20.hGap,
                 Row(
                   children: [
                     Expanded(

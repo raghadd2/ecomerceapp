@@ -15,7 +15,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(context.tr.home),
+          centerTitle: true,
+          title: Text('Feed',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
         ),
         body: ProductStaggeredGrid());
   }
