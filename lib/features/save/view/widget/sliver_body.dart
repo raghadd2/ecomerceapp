@@ -1,65 +1,11 @@
+
 import 'package:base_project/core/routes/route_name.dart';
-import 'package:base_project/core/utils/app_assets.dart';
 import 'package:base_project/core/utils/app_extension.dart';
 import 'package:base_project/core/utils/public_methods.dart';
-import 'package:base_project/features/home/view/details_screen.dart';
-import 'package:base_project/features/home/view/screens/home_screen.dart';
+import 'package:base_project/features/save/view/screen/save_screen.dart';
+import 'package:base_project/features/save/view/widget/search_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
-
-class SaveItemPageScreen extends StatefulWidget {
-  final Product product;
-
-  SaveItemPageScreen({required this.product});
-
-  @override
-  State<SaveItemPageScreen> createState() => _SaveItemPageScreenState();
-}
-
-class _SaveItemPageScreenState extends State<SaveItemPageScreen> {
-  double _scrollOffset = 0.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: NotificationListener<ScrollNotification>(
-        onNotification: (ScrollNotification scrollInfo) {
-          setState(() {
-            _scrollOffset = scrollInfo.metrics.pixels;
-          });
-          return true;
-        },
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              expandedHeight: 300,
-              pinned: true, // Keeps the AppBar visible when scrolling
-              leading: IconButton(
-                icon: Icon(Icons.close, color: Colors.black),
-                onPressed: () => Navigator.pop(context),
-              ),
-              flexibleSpace: FlexibleSpaceBar(
-                background: SliverAppBarWidget(product: widget.product),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                color: _scrollOffset > 150 ? Colors.white : Colors.blueGrey[50],
-                child: SliverBodyWidget(),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavWidget(
-        text: "+ Create drawer",
-      ),
-    );
-  }
-}
 
 class SliverBodyWidget extends StatelessWidget {
   const SliverBodyWidget({
@@ -151,78 +97,6 @@ class SliverBodyWidget extends StatelessWidget {
               ),
             ),
           )
-        ],
-      ),
-    );
-  }
-}
-
-class CustomSearchWidget extends StatelessWidget {
-  final String text;
-  const CustomSearchWidget({
-    super.key,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      onChanged: (value) {},
-      decoration: InputDecoration(
-        suffixIcon: Icon(Icons.search, color: Colors.grey),
-        hintText: text,
-        hintStyle: TextStyle(color: Colors.grey),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-      style: TextStyle(color: Colors.black),
-    );
-  }
-}
-
-class SliverAppBarWidget extends StatelessWidget {
-  const SliverAppBarWidget({
-    super.key,
-    required this.product,
-  });
-
-  final Product product;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueGrey[50],
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            AppIcons.bookmarkicon,
-            height: 26,
-          ),
-          SizedBox(height: 30),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.network(
-              product.image,
-              fit: BoxFit.cover,
-              height: 126,
-              width: 104,
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            product.title,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
         ],
       ),
     );

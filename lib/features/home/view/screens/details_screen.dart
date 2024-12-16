@@ -1,11 +1,13 @@
 import 'package:base_project/core/routes/route_name.dart';
 import 'package:base_project/core/utils/app_assets.dart';
 import 'package:base_project/core/utils/app_extension.dart';
-import 'package:base_project/core/utils/theme/app_colors.dart';
 import 'package:base_project/features/home/view/screens/home_screen.dart';
+import 'package:base_project/features/home/view/widget/bottom_nav_widget.dart';
+import 'package:base_project/features/home/view/widget/carousel_widget.dart';
+import 'package:base_project/features/home/view/widget/clothes_scroll_widget.dart';
+import 'package:base_project/features/home/view/widget/expantion_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:go_router/go_router.dart'; // Import the carousel_slider package
 
 class DetailsScreen extends StatefulWidget {
@@ -51,7 +53,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _DetailesCarouselWidget(widget: widget),
+              DetailesCarouselWidget(widget: widget),
               SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -254,163 +256,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 }
 
-class BottomNavWidget extends StatelessWidget {
-  final String text;
-  const BottomNavWidget({
-    super.key,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16.0,
-          right: 16.0,
-          bottom: 16.0,
-        ),
-        child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-            color: Color(0xff614FE0),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _DetailesCarouselWidget extends StatelessWidget {
-  const _DetailesCarouselWidget({
-    super.key,
-    required this.widget,
-  });
-
-  final DetailsScreen widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return CarouselSlider(
-        options: CarouselOptions(
-          height: 400,
-          aspectRatio: 16 / 9,
-          viewportFraction: 1.0,
-          enableInfiniteScroll: true,
-          enlargeCenterPage: true,
-          autoPlay: false,
-        ),
-        items: [
-          widget.product.image,
-          widget.product.image,
-          widget.product.image,
-        ].map((i) {
-          return Builder(
-            builder: (BuildContext context) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Image.network(
-                      i,
-                      fit: BoxFit.cover,
-                    )),
-              );
-            },
-          );
-        }).toList());
-  }
-}
-
-class ClothesScrollWidget extends StatelessWidget {
-  final Widget widget;
-  final String imageurl;
-  final String text;
-  final String text2;
-  final double height;
-  final double width;
-  final double widgetheight;
-  final FontWeight fontWeight;
-   Color? color;
-
-   ClothesScrollWidget({
-    super.key,
-    required this.widget,
-    required this.imageurl,
-    required this.text,
-    required this.text2,
-    required this.height,
-    required this.width,
-    required this.widgetheight,
-    required this.fontWeight,  this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        widget,
-        20.hGap,
-        Container(
-          height: widgetheight,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: 3,
-            separatorBuilder: (context, index) => 10.wGap,
-            itemBuilder: (context, index) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    imageurl,
-                    height: height,
-                    width: width,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                10.hGap,
-                Container(
-                  width: context.width * 0.4,
-                  child: Text(
-                    text,
-                    maxLines: 2,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: fontWeight,
-                    ),
-                  ),
-                ),
-                Text(
-                  text2,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color:color ,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class DeatilscontWidget extends StatelessWidget {
   final Widget widget;
   final Color color;
@@ -431,70 +276,6 @@ class DeatilscontWidget extends StatelessWidget {
             border: Border.all(color: Color(0xffE7E7E8)),
             borderRadius: BorderRadius.circular(10)),
         child: widget,
-      ),
-    );
-  }
-}
-
-class CustomExpansionTileWidget extends StatefulWidget {
-  const CustomExpansionTileWidget({
-    super.key,
-    required this.index,
-    required this.title,
-    required this.content,
-  });
-  final int index;
-  final String title;
-  final String content;
-
-  @override
-  State<CustomExpansionTileWidget> createState() =>
-      _CustomExpansionTileWidgetState();
-}
-
-class _CustomExpansionTileWidgetState extends State<CustomExpansionTileWidget> {
-  bool _isOpen = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _isOpen = !_isOpen;
-        });
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Divider(color: Colors.grey, thickness: 0.5),
-          Container(
-            padding: EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    widget.title,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                // 8.wGap,
-                Icon(
-                  color: AppColors.primaryColor,
-                  _isOpen ? Icons.expand_less : Icons.expand_more,
-                ),
-              ],
-            ),
-          ),
-          if (_isOpen)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(widget.content),
-            ),
-        ],
       ),
     );
   }

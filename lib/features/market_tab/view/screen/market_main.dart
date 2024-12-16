@@ -1,5 +1,7 @@
-import 'package:base_project/features/home/view/details_screen.dart';
-import 'package:base_project/features/save/save.dart';
+import 'package:base_project/features/home/view/widget/clothes_scroll_widget.dart';
+import 'package:base_project/features/market_tab/view/widget/collection_widget.dart';
+import 'package:base_project/features/save/view/screen/save_screen.dart';
+import 'package:base_project/features/save/view/widget/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:go_router/go_router.dart';
@@ -101,7 +103,6 @@ class _MarketMainState extends State<MarketMain> {
     );
   }
 
-  // Tab Widgets
   Widget _buildFeaturedTab() {
     return SingleChildScrollView(
       child: Column(
@@ -186,11 +187,11 @@ class _MarketMainState extends State<MarketMain> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          CollectionBody(context: context),
+          CollectionWidget(context: context),
           5.hGap,
-          CollectionBody(context: context),
+          CollectionWidget(context: context),
           5.hGap,
-          CollectionBody(context: context),
+          CollectionWidget(context: context),
         ],
       ),
     );
@@ -350,52 +351,6 @@ class _MarketMainState extends State<MarketMain> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class CollectionBody extends StatelessWidget {
-  const CollectionBody({
-    super.key,
-    required this.context,
-  });
-
-  final BuildContext context;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          alignment: Alignment.bottomLeft,
-          decoration: BoxDecoration(
-            color: Color(0xffFEEFEF),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-          height: 100,
-          width: context.width * 0.45,
-          child: Text(
-            'On sale',
-            style: TextStyle(color: Colors.red),
-          ),
-        ),
-        Container(
-          alignment: Alignment.bottomLeft,
-          decoration: BoxDecoration(
-            color: Color(0xffEFEDFC),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-          height: 100,
-          width: context.width * 0.45,
-          child: Text(
-            'New in',
-            style: TextStyle(color: Color(0xff614FE0)),
-          ),
-        )
-      ],
     );
   }
 }

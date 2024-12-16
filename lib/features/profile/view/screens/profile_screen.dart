@@ -1,6 +1,8 @@
 import 'package:base_project/core/utils/app_assets.dart';
 import 'package:base_project/core/utils/app_extension.dart';
-import 'package:base_project/features/save/save.dart';
+import 'package:base_project/features/profile/view/widget/drawes_widget.dart';
+import 'package:base_project/features/save/view/screen/save_screen.dart';
+import 'package:base_project/features/save/view/widget/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -206,45 +208,4 @@ Widget _buildButton(BuildContext context, String label) {
       ),
     ),
   );
-}
-
-class DrawersWidget extends StatelessWidget {
-  final String title;
-  final String image;
-  const DrawersWidget({
-    super.key,
-    required this.title,
-    required this.image,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Color(0xffF3F3F3),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      padding: EdgeInsets.all(16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-              Text('27 products',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  )),
-            ],
-          ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.network(height: 104, image),
-          )
-        ],
-      ),
-    );
-  }
 }
