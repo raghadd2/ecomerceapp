@@ -1,9 +1,10 @@
 
 import 'package:base_project/core/utils/app_assets.dart';
 import 'package:base_project/features/home/view/screens/home_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:base_project/features/home/view/widget/shimmer_widget.dart';
 class SliverAppBarWidget extends StatelessWidget {
   const SliverAppBarWidget({
     super.key,
@@ -26,7 +27,11 @@ class SliverAppBarWidget extends StatelessWidget {
           SizedBox(height: 30),
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Image.network(
+            child: CachedNetworkImage(
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+
+                        placeholder: (context, url) => Shimmer_widget(),
+              imageUrl: 
               product.image,
               fit: BoxFit.cover,
               height: 126,

@@ -1,14 +1,8 @@
-import 'package:base_project/core/routes/route_name.dart';
-import 'package:base_project/core/utils/app_assets.dart';
-import 'package:base_project/core/utils/app_extension.dart';
-import 'package:base_project/core/utils/public_methods.dart';
 import 'package:base_project/features/home/view/screens/home_screen.dart';
 import 'package:base_project/features/home/view/widget/bottom_nav_widget.dart';
 import 'package:base_project/features/save/view/widget/sliver_app_bar_widget.dart';
 import 'package:base_project/features/save/view/widget/sliver_body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 
 class SaveItemPageScreen extends StatefulWidget {
   final Product product;

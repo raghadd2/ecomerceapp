@@ -1,7 +1,8 @@
+import 'package:base_project/features/home/view/widget/shimmer_widget.dart';
 import 'package:base_project/features/home/view/widget/clothes_scroll_widget.dart';
 import 'package:base_project/features/market_tab/view/widget/collection_widget.dart';
-import 'package:base_project/features/save/view/screen/save_screen.dart';
 import 'package:base_project/features/save/view/widget/search_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:go_router/go_router.dart';
@@ -259,8 +260,11 @@ class _MarketMainState extends State<MarketMain> {
           5,
           (index) => ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.network(
-              'https://s3-alpha-sig.figma.com/img/4796/afb2/2e34f91a7e3474a949d5a8401bcf283b?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CuPtPAK4HgDcuWIxpUJjr24tru7MoBTDcugJxmIWucLeWepGMzVXcP4Q7Fb6sYEzc8dufnBC4V1mjre0rE9WI~w2XilmVoO7anmwJeQoqJ8stdK9zVsgSMs-t12~zK8BcrRwPEvogzz0UvZR1oQ6PFXcMYn-lgAQmuBi0fsQPVDDYMoMLl60BSlhOJYSGJEBCOpOHPzETcLO7TkflF1vaCizlYnyJJPLpoKR2UwKvWK1NJj-K7p-kuKhKIQlQtx679ZyAf8btYb1mfCI0ENIvGUytx~CqJqbnOa9HN2SgSG2Zs4Of0LGyi8U711-t4TUZUfsdoxefEeUcJK1D95TNg__',
+            child: CachedNetworkImage(
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              placeholder: (context, url) => Shimmer_widget(),
+              imageUrl:
+                  'https://s3-alpha-sig.figma.com/img/4796/afb2/2e34f91a7e3474a949d5a8401bcf283b?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CuPtPAK4HgDcuWIxpUJjr24tru7MoBTDcugJxmIWucLeWepGMzVXcP4Q7Fb6sYEzc8dufnBC4V1mjre0rE9WI~w2XilmVoO7anmwJeQoqJ8stdK9zVsgSMs-t12~zK8BcrRwPEvogzz0UvZR1oQ6PFXcMYn-lgAQmuBi0fsQPVDDYMoMLl60BSlhOJYSGJEBCOpOHPzETcLO7TkflF1vaCizlYnyJJPLpoKR2UwKvWK1NJj-K7p-kuKhKIQlQtx679ZyAf8btYb1mfCI0ENIvGUytx~CqJqbnOa9HN2SgSG2Zs4Of0LGyi8U711-t4TUZUfsdoxefEeUcJK1D95TNg__',
               fit: BoxFit.cover,
             ),
           ),

@@ -3,6 +3,7 @@ import 'package:base_project/core/utils/app_assets.dart';
 import 'package:base_project/core/utils/app_extension.dart';
 import 'package:base_project/features/home/view/screens/home_screen.dart';
 import 'package:base_project/features/home/view/widget/bottom_nav_widget.dart';
+import 'package:base_project/features/home/view/widget/brand_image_widget.dart';
 import 'package:base_project/features/home/view/widget/carousel_widget.dart';
 import 'package:base_project/features/home/view/widget/clothes_scroll_widget.dart';
 import 'package:base_project/features/home/view/widget/expantion_tile_widget.dart';

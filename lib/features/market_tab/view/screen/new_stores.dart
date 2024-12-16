@@ -1,3 +1,5 @@
+import 'package:base_project/features/home/view/widget/shimmer_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class NewStores extends StatelessWidget {
@@ -89,7 +91,11 @@ class NewStores extends StatelessWidget {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: Image.network(
+                            child: CachedNetworkImage(
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+
+                        placeholder: (context, url) => Shimmer_widget(),
+                                imageUrl:
                                 // height: 90,
                                 products[index]['image'],
                                 // width: 90,

@@ -1,5 +1,7 @@
 
 import 'package:base_project/features/home/view/screens/details_screen.dart';
+import 'package:base_project/features/home/view/widget/shimmer_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -33,8 +35,11 @@ class DetailesCarouselWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    child: Image.network(
-                      i,
+                    child: CachedNetworkImage(
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+
+                        placeholder: (context, url) => Shimmer_widget(),
+                 imageUrl:      i,
                       fit: BoxFit.cover,
                     )),
               );

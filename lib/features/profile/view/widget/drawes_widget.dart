@@ -1,4 +1,5 @@
-
+import 'package:base_project/features/home/view/widget/shimmer_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class DrawersWidget extends StatelessWidget {
@@ -34,7 +35,10 @@ class DrawersWidget extends StatelessWidget {
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Image.network(height: 104, image),
+            child:CachedNetworkImage(
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+
+                        placeholder: (context, url) => Shimmer_widget(),height: 104,imageUrl:  image),
           )
         ],
       ),

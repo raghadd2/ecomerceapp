@@ -1,7 +1,7 @@
 
-import 'dart:ui';
-
 import 'package:base_project/core/utils/app_extension.dart';
+import 'package:base_project/features/home/view/widget/shimmer_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ClothesScrollWidget extends StatelessWidget {
@@ -46,7 +46,11 @@ class ClothesScrollWidget extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
+                  child:CachedNetworkImage(
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+
+                        placeholder: (context, url) => Shimmer_widget(),
+                  imageUrl:
                     imageurl,
                     height: height,
                     width: width,

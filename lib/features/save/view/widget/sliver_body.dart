@@ -2,8 +2,9 @@
 import 'package:base_project/core/routes/route_name.dart';
 import 'package:base_project/core/utils/app_extension.dart';
 import 'package:base_project/core/utils/public_methods.dart';
-import 'package:base_project/features/save/view/screen/save_screen.dart';
+import 'package:base_project/features/home/view/widget/shimmer_widget.dart';
 import 'package:base_project/features/save/view/widget/search_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -63,7 +64,11 @@ class SliverBodyWidget extends StatelessWidget {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(16),
-                        child: Image.network(
+                        child:CachedNetworkImage(
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+
+                        placeholder: (context, url) => Shimmer_widget(),
+                        imageUrl: 
                           'https://s3-alpha-sig.figma.com/img/455e/9511/a94fd193eb30c3e9901b72933f49a32e?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=O1DRbtLJS21TKm-1MFwlU9xHWDcv99ljYRQTmRFlzPiC1znn5utRvPUs0UqcgtzB6MGG8Et9D~bMmUDrJfF61YigxhexxPtMnnEYA0XSsVuNw3twSrrCUO5F~rjTyVVjRGygsFX3AmP6mvFfPjHwwRSF~z8VstwbzaH3aoEz~mmqB3E5LwF7uNGvAvmqQ5rnMgu-Zh5ki-ZiAKaiEFgc-vKOhlc0q5h4itMMBP0vAR2YOQEqb~AicBpNv9IH8BdfNSikY0PoybVfU58cy2au5n6X-jZ55SDv3yWSqiBNbVGdFqomyb901d-k~SZpXEM9ib7Bx4VjtoiXkALGwDlK7w__',
                           fit: BoxFit.contain,
                           height: 58,

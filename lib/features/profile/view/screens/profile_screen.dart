@@ -1,8 +1,9 @@
 import 'package:base_project/core/utils/app_assets.dart';
 import 'package:base_project/core/utils/app_extension.dart';
+import 'package:base_project/features/home/view/widget/shimmer_widget.dart';
 import 'package:base_project/features/profile/view/widget/drawes_widget.dart';
-import 'package:base_project/features/save/view/screen/save_screen.dart';
 import 'package:base_project/features/save/view/widget/search_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -21,9 +22,12 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        // errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
-                        "https://www.w3schools.com/w3images/avatar2.png",
+                      child: CachedNetworkImage(
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        placeholder: (context, url) => Shimmer_widget(),
+                        imageUrl:
+                            // errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+                            "https://www.w3schools.com/w3images/avatar2.png",
                         width: 50,
                         height: 50,
                       ),

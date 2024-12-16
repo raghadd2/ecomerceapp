@@ -1,12 +1,10 @@
-import 'dart:ui';
-
 import 'package:base_project/core/routes/route_name.dart';
-import 'package:base_project/core/utils/app_assets.dart';
-import 'package:base_project/core/utils/app_extension.dart';
+import 'package:base_project/features/home/view/widget/product_dialog.dart';
+import 'package:base_project/features/home/view/widget/shimmer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -230,14 +228,13 @@ class ProductCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
-            child: Image.network(
-              errorBuilder: (context, error, stackTrace) {
-                return Icon(Icons.error);
-              },
-              image,
+            child: CachedNetworkImage(
+              imageUrl: image,
               fit: BoxFit.cover,
               width: double.infinity,
               height: isSquare ? 200 : 160,
+              placeholder: (context, url) => Shimmer_widget(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
           Padding(
@@ -266,270 +263,6 @@ class ProductCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ProductDetailDialog extends StatelessWidget {
-  final Map<String, dynamic> product;
-
-  const ProductDetailDialog({required this.product});
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: BackdropFilter(
-              blendMode: BlendMode.colorDodge,
-              filter: ImageFilter.blur(sigmaX: 35.0, sigmaY: 35.0),
-              child: Container(
-                color: Colors.white.withOpacity(0.6),
-              ),
-            ),
-          ),
-          Positioned.fill(
-            child: BackdropFilter(
-              // blendMode: BlendMode.,
-              filter: ImageFilter.blur(sigmaX: 35.0, sigmaY: 35.0),
-              child: Container(),
-            ),
-          ),
-          Container(
-            width: 300,
-            height: 450,
-            child: Stack(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        product['image'],
-                        height: 266,
-                        // width: 215,
-                        width: context.width * 0.57,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    SizedBox(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          CustomButton(
-                            ontap: () {
-                              context.push(
-                                Routes.saveRoute,
-                                extra: Product(
-                                  image: product['image'],
-                                  title: product['title'],
-                                  price: product['price'],
-                                  category: product['category'],
-                                ),
-                              );
-                            },
-                            icon: AppIcons.bookmarkicon,
-                          ),
-                          CustomButton(
-                            icon: AppIcons.checkicon,
-                            ontap: () {},
-                          ),
-                          CustomButton(
-                            icon: AppIcons.shareicon,
-                            ontap: () {},
-                          ),
-                          CustomButton(
-                            icon: AppIcons.bandicon,
-                            ontap: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  bottom: 70,
-                  child: DeatielsButton(product: product),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class DeatielsButton extends StatefulWidget {
-  const DeatielsButton({
-    super.key,
-    required this.product,
-  });
-
-  final Map<String, dynamic> product;
-
-  @override
-  State<DeatielsButton> createState() => _DeatielsButtonState();
-}
-
-class _DeatielsButtonState extends State<DeatielsButton> {
-  bool _isPressed = false;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        print('object');
-        context.push(
-          Routes.deatilsRoute,
-          extra: Product(
-            image: widget.product['image'],
-            title: widget.product['title'],
-            price: widget.product['price'],
-            category: widget.product['category'],
-          ),
-        );
-      },
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapUp: (_) {
-        setState(() {
-          _isPressed = false;
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          _isPressed = false;
-        });
-      },
-      child: Container(
-        width: context.width * 0.7,
-        height: 90,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: _isPressed ? Color(0xff614FE0) : Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              widget.product['title'],
-              style: TextStyle(
-                fontSize: 16,
-                color: _isPressed ? Colors.white : Colors.black,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            BrandimageWidget(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class BrandimageWidget extends StatelessWidget {
-  const BrandimageWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-          color: Colors.grey,
-        ),
-        borderRadius: BorderRadius.circular(100),
-      ),
-      child: Text(
-        'B',
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-}
-
-class CustomButton extends StatefulWidget {
-  final String icon;
-  final Function ontap;
-  const CustomButton({
-    required this.icon,
-    Key? key,
-    required this.ontap,
-  }) : super(key: key);
-
-  @override
-  _CustomButtonState createState() => _CustomButtonState();
-}
-
-class _CustomButtonState extends State<CustomButton> {
-  bool _isPressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () {
-            widget.ontap();
-          },
-          onTapDown: (_) {
-            setState(() {
-              _isPressed = true;
-            });
-          },
-          onTapUp: (_) {
-            setState(() {
-              _isPressed = false;
-            });
-          },
-          onTapCancel: () {
-            setState(() {
-              _isPressed = false;
-            });
-          },
-          child: Container(
-            height: _isPressed ? 60 : 50,
-            width: _isPressed ? 60 : 50,
-            decoration: BoxDecoration(
-              color: _isPressed ? Color(0xff614FE0) : Colors.white,
-              borderRadius: const BorderRadius.all(Radius.circular(15)),
-            ),
-            child: Container(
-              child: SvgPicture.asset(
-                widget.icon,
-                fit: BoxFit.scaleDown,
-                colorFilter: _isPressed
-                    ? ColorFilter.mode(Colors.white, BlendMode.srcIn)
-                    : null,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-      ],
     );
   }
 }
